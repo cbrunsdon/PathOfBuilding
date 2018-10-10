@@ -350,7 +350,7 @@ function calcs.defence(env, actor)
 			s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
 			s_format("/ %.2f ^8(portion taken from mana)", output.MindOverMatter / 100),
 			s_format("x %.2f ^8(portion taken from life)", 1 - output.MindOverMatter / 100),
-			s_format("= %d", lifeProtected),
+			s_format("= %f", lifeProtected),
 			s_format("Effective life: %d", effectiveLife)
 		}
 	end
@@ -498,7 +498,7 @@ function calcs.defence(env, actor)
 					output.PhysicalDamageReduction = resist
 					if breakdown then
 						breakdown.PhysicalDamageReduction = {
-							s_format("Enemy Physical Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyPhysicalHit and "overridden from" or "can be overridden in"),
+							s_format("Enemy Physical Hit Damage: %f ^8(%s the Configuration tab)", damage, env.configInput.enemyPhysicalHit and "overridden from" or "can be overridden in"),
 						}
 						if portion < 100 then
 							t_insert(breakdown.PhysicalDamageReduction, s_format("Portion taken as Physical: %d%%", portion))
