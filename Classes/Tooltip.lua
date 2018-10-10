@@ -100,7 +100,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	if type(self.color) == "string" then
 		SetDrawColor(self.color) 
 	else
-		SetDrawColor(unpack(self.color))
+		SetDrawColor(table.unpack(self.color))
 	end
 	DrawImage(nil, ttX, ttY, ttW, 3)
 	DrawImage(nil, ttX, ttY, 3, ttH)
@@ -122,7 +122,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			if type(self.color) == "string" then
 				SetDrawColor(self.color) 
 			else
-				SetDrawColor(unpack(self.color))
+				SetDrawColor(table.unpack(self.color))
 			end
 			DrawImage(nil, ttX + 3, y - 1 + data.size / 2, ttW - 6, 2)
 			y = y + data.size + 2

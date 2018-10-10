@@ -228,7 +228,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		rowList = modList
 	else
 		if type(sectionData.modName) == "table" then
-			rowList = modDB:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
+			rowList = modDB:Tabulate(sectionData.modType, cfg, table.unpack(sectionData.modName))
 		else
 			rowList = modDB:Tabulate(sectionData.modType, cfg, sectionData.modName)
 		end

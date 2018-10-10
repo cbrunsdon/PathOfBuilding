@@ -7,7 +7,6 @@ local calcs = ...
 
 local pairs = pairs
 local ipairs = ipairs
-local unpack = unpack
 local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
@@ -108,8 +107,8 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	end
 
 	-- Combine modifiers
-	local inc = 1 + modDB:Sum("INC", cfg, unpack(modNames)) / 100
-	local more = m_floor(modDB:Sum("MORE", cfg, unpack(modNames)) * 100 + 0.50000001) / 100
+	local inc = 1 + modDB:Sum("INC", cfg, table.unpack(modNames)) / 100
+	local more = m_floor(modDB:Sum("MORE", cfg, table.unpack(modNames)) * 100 + 0.50000001) / 100
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
@@ -184,7 +183,7 @@ function calcs.offence(env, actor)
 		-- Spell Damage conversion from Crown of Eyes
 		for i, mod in ipairs(modDB.mods.Damage or { }) do
 			if mod.type == "INC" and band(mod.flags, ModFlag.Spell) ~= 0 then
-				modDB:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+				modDB:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, table.unpack(mod))
 			end
 		end
 	end
@@ -192,7 +191,7 @@ function calcs.offence(env, actor)
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.PhysicalDamage or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
-				modDB:NewMod("PhysicalDamage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
+				modDB:NewMod("PhysicalDamage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, table.unpack(mod))
 			end
 		end
 	end
@@ -200,7 +199,7 @@ function calcs.offence(env, actor)
 		-- Claw Attack Speed conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.Speed or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 and band(mod.flags, ModFlag.Attack) ~= 0 then
-				modDB:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
+				modDB:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, table.unpack(mod))
 			end
 		end
 	end
@@ -208,7 +207,7 @@ function calcs.offence(env, actor)
 		-- Claw Crit Chance conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.CritChance or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
-				modDB:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
+				modDB:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, table.unpack(mod))
 			end
 		end
 	end

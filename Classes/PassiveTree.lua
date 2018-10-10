@@ -61,7 +61,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		treeFile:write(treeText)
 		treeFile:close()
 	end
-	for k, v in pairs(assert(loadstring(treeText))()) do
+	for k, v in pairs(assert(load(treeText))()) do
 		self[k] = v
 	end
 

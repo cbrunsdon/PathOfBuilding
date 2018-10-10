@@ -5,7 +5,6 @@
 --
 local modDB, output, actor = ...
 
-local unpack = unpack
 local ipairs = ipairs
 local t_insert = table.insert
 local m_sqrt = math.sqrt
@@ -24,13 +23,13 @@ function breakdown.multiChain(out, chain)
 						t_insert(out, chain.label)
 					end
 					t_insert(out, base)
-					t_insert(out, "x "..s_format(unpack(mult)))
+					t_insert(out, "x "..s_format(table.unpack(mult)))
 					lines = 2
 				else
-					base = s_format(unpack(mult))
+					base = s_format(table.unpack(mult))
 				end
 			else
-				t_insert(out, "x "..s_format(unpack(mult)))
+				t_insert(out, "x "..s_format(table.unpack(mult)))
 				lines = lines + 1
 			end
 		end

@@ -1164,12 +1164,12 @@ local function getSimpleConv(srcList, dst, type, remove, factor)
 				for _, mod in ipairs(node.modList) do
 					if mod.name == src and mod.type == type then
 						if remove then
-							out:MergeNewMod(src, type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+							out:MergeNewMod(src, type, -mod.value, mod.source, mod.flags, mod.keywordFlags, table.unpack(mod))
 						end
 						if factor then
-							out:MergeNewMod(dst, type, math.floor(mod.value * factor), mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+							out:MergeNewMod(dst, type, math.floor(mod.value * factor), mod.source, mod.flags, mod.keywordFlags, table.unpack(mod))
 						else
-							out:MergeNewMod(dst, type, mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+							out:MergeNewMod(dst, type, mod.value, mod.source, mod.flags, mod.keywordFlags, table.unpack(mod))
 						end
 					end
 				end	
@@ -1200,8 +1200,8 @@ local jewelOtherFuncs = {
 			local mask3 = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee)
 			for _, mod in ipairs(node.modList) do
 				if band(mod.flags, mask1) ~= 0 or band(mod.flags, mask2) == mask2 or band(mod.flags, mask3) == mask3 then
-					out:MergeNewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-					out:MergeNewMod(mod.name, mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod))
+					out:MergeNewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, table.unpack(mod))
+					out:MergeNewMod(mod.name, mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, table.unpack(mod))
 				elseif mod[1] then
 					local using = { UsingAxe = true, UsingClaw = true, UsingDagger = true, UsingMace = true, UsingStaff = true, UsingSword = true, UsingMeleeWeapon = true }
 					for _, tag in ipairs(mod) do
@@ -1213,8 +1213,8 @@ local jewelOtherFuncs = {
 									break
 								end
 							end
-							out:MergeNewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-							out:MergeNewMod(mod.name, mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(newTagList))
+							out:MergeNewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, table.unpack(mod))
+							out:MergeNewMod(mod.name, mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags, table.unpack(newTagList))
 							break
 						end
 					end
@@ -1339,7 +1339,7 @@ local function parseMod(line, order)
 	local specialMod, specialLine, cap = scan(line, specialModList)
 	if specialMod and #specialLine == 0 then
 		if type(specialMod) == "function" then
-			return specialMod(tonumber(cap[1]), unpack(cap))
+			return specialMod(tonumber(cap[1]), table.unpack(cap))
 		else
 			return copyTable(specialMod)
 		end
@@ -1373,12 +1373,12 @@ local function parseMod(line, order)
 	local modTag, modTag2, tagCap
 	modTag, line, tagCap = scan(line, modTagList)
 	if type(modTag) == "function" then
-		modTag = modTag(tonumber(tagCap[1]), unpack(tagCap))
+		modTag = modTag(tonumber(tagCap[1]), table.unpack(tagCap))
 	end
 	if modTag then
 		modTag2, line, tagCap = scan(line, modTagList)
 		if type(modTag2) == "function" then
-			modTag2 = modTag2(tonumber(tagCap[1]), unpack(tagCap))
+			modTag2 = modTag2(tonumber(tagCap[1]), table.unpack(tagCap))
 		end
 	end
 	
@@ -1494,7 +1494,7 @@ local function parseMod(line, order)
 			value = type(modValue) == "table" and modValue[i] or modValue,
 			flags = flags,
 			keywordFlags = keywordFlags,
-			unpack(tagList)
+			table.unpack(tagList)
 		}
 	end
 	if modList[1] then
@@ -1512,7 +1512,7 @@ local function parseMod(line, order)
 					tagList[i] = tag
 					effectMod[i] = nil
 				end
-				modList[i] = mod("ExtraAura", "LIST", { mod = effectMod, onlyAllies = misc.newAuraOnlyAllies }, unpack(tagList))
+				modList[i] = mod("ExtraAura", "LIST", { mod = effectMod, onlyAllies = misc.newAuraOnlyAllies }, table.unpack(tagList))
 			end
 		elseif misc.affectedByAura then
 			-- Modifiers that apply to actors affected by your auras
@@ -1553,5 +1553,5 @@ return function(line)
 			end
 		end]]
 	end
-	return unpack(copyTable(cache[line]))
+	return table.unpack(copyTable(cache[line]))
 end, cache

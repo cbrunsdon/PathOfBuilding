@@ -166,7 +166,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 		end
 		local modVal
 		if type(sectionData.modName) == "table" then
-			modVal = actor.modDB:Sum(sectionData.modType, modCfg, unpack(sectionData.modName))
+			modVal = actor.modDB:Sum(sectionData.modType, modCfg, table.unpack(sectionData.modName))
 		else
 			modVal = actor.modDB:Sum(sectionData.modType, modCfg, sectionData.modName)
 		end

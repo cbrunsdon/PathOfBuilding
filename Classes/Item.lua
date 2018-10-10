@@ -784,7 +784,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			jewelData[value.key] = value.value
 		end
 	end	
-	return { unpack(modList) }
+	return { table.unpack(modList) }
 end
 
 -- Build lists of modifiers for each slot the item can occupy
