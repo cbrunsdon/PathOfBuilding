@@ -134,7 +134,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 
 	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData[build.targetVersion]) do
-		self:NewSection(unpack(section))
+		self:NewSection(table.unpack(section))
 	end
 
 	self.controls.breakdown = common.New("CalcBreakdown", self)
@@ -480,11 +480,11 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:GetNodeCalculator()
-	return unpack(self.nodeCalculator)
+	return table.unpack(self.nodeCalculator)
 end
 
 function CalcsTabClass:GetMiscCalculator()
-	return unpack(self.miscCalculator)
+	return table.unpack(self.miscCalculator)
 end
 
 function CalcsTabClass:CreateUndoState()

@@ -295,7 +295,7 @@ function main:OnFrame()
 		end
 		self.mode = self.newMode
 		self.newMode = nil
-		self:CallMode("Init", unpack(self.newModeArgs))
+		self:CallMode("Init", table.unpack(self.newModeArgs))
 	end
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
@@ -463,7 +463,7 @@ function main:LoadSettings()
 						end
 					end
 				end
-				self:SetMode(node.attrib.mode, unpack(args))
+				self:SetMode(node.attrib.mode, table.unpack(args))
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
 				for _, child in ipairs(node) do

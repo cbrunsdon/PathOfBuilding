@@ -200,7 +200,7 @@ function PassiveSpecClass:EncodeURL(prefix)
 			t_insert(a, id % 256)
 		end
 	end
-	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
+	return (prefix or "")..common.base64.encode(string.char(table.unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
 -- Change the current class, preserving currently allocated nodes if they connect to the new class's starting node

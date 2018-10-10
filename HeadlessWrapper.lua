@@ -136,7 +136,7 @@ function PCall(func, ...)
 	local ret = { pcall(func, ...) }
 	if ret[1] then
 		table.remove(ret, 1)
-		return nil, unpack(ret)
+		return nil, table.unpack(ret)
 	else
 		return ret[2]
 	end	
@@ -198,6 +198,8 @@ local function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)
 end
 
 
+build = newBuild()
+print(build)
 -- Now you can mess around!
 
 

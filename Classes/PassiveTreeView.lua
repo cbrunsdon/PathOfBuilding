@@ -335,7 +335,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Fade out lines in ascendancy classes other than the current one
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
-		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
+		DrawImageQuad(tree.assets[connector.type..state].handle, table.unpack(connector.c))
 		SetDrawColor(1, 1, 1)
 	end
 
@@ -527,7 +527,7 @@ function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 		DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
 		DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
 	else
-		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, unpack(data))
+		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, table.unpack(data))
 	end
 end
 

@@ -182,7 +182,7 @@ local wildAssGuessAtNewGemInfo = {
 }
 function dammitChris(grantedId)
 	if wildAssGuessAtNewGemInfo[grantedId] then
-		return unpack(wildAssGuessAtNewGemInfo[grantedId])
+		return table.unpack(wildAssGuessAtNewGemInfo[grantedId])
 	end
 	for id, data in pairs(gemMap) do
 		if data.grantedEffectId == grantedId then

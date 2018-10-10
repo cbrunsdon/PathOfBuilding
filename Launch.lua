@@ -128,7 +128,7 @@ function launch:OnFrame()
 	SetDrawLayer(1000)
 	SetViewport()
 	if self.promptMsg then
-		local r, g, b = unpack(self.promptCol)
+		local r, g, b = table.unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
 	end
 	if self.doRestart then
