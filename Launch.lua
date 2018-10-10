@@ -9,6 +9,28 @@ SetWindowTitle("Path of Building")
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+bit = {}
+
+function bit:bor(a, b)
+	if b == nil then
+		return a
+	else
+		return a | b
+	end
+end
+
+function bit:band(a, b)
+	if b == nil then
+		return 0
+	else
+		return a & b
+	end
+end
+
+function bit.bnot(a)
+	return ~a
+end
+
 local launch = { }
 SetMainObject(launch)
 
