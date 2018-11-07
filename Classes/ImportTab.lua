@@ -814,7 +814,7 @@ function ImportTabClass:ProcessJSON(json)
 	if errMsg then
 		return nil, errMsg
 	end
-	setfenv(func, { }) -- Sandbox the function just in case
+	-- setfenv(func, { }) -- Sandbox the function just in case
 	local data = func()
 	if type(data) ~= "table" then
 		return nil, "Return type is not a table"
