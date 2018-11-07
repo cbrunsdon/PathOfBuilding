@@ -53,6 +53,7 @@ function calcs.defence(env, actor)
 		output[elem.."Resist"] = m_min(total, max)
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
+
 		if breakdown then
 			breakdown[elem.."Resist"] = {
 				"Max: "..max.."%",
@@ -338,7 +339,7 @@ function calcs.defence(env, actor)
 
 	-- Mind over Matter
 	output.MindOverMatter = modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife")
-	if output.MindOverMatter and breakdown then
+	if output.MindOverMatter and output.MindOverMatter > 0 and breakdown then
 		local sourcePool = output.ManaUnreserved or 0
 		if modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") then
 			sourcePool = sourcePool + output.EnergyShield
@@ -350,7 +351,7 @@ function calcs.defence(env, actor)
 			s_format("%d ^8(unreserved mana%s)", sourcePool, modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and " + total energy shield" or ""),
 			s_format("/ %.2f ^8(portion taken from mana)", output.MindOverMatter / 100),
 			s_format("x %.2f ^8(portion taken from life)", 1 - output.MindOverMatter / 100),
-			s_format("= %f", lifeProtected),
+			s_format("= %d", lifeProtected),
 			s_format("Effective life: %d", effectiveLife)
 		}
 	end
@@ -582,14 +583,14 @@ function calcs.defence(env, actor)
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.MeleeEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
 				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeAvoidChance),
+				total = s_format("= %f%% ^8(chance to be hit by a melee attack)", 100 - output.MeleeAvoidChance),
 			})
 			breakdown.ProjectileAvoidChance = { }
 			breakdown.multiChain(breakdown.ProjectileAvoidChance, {
 				{ "%.2f ^8(chance for evasion to fail)", 1 - output.ProjectileEvadeChance / 100 },
 				{ "%.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100 },
 				{ "%.2f ^8(chance for block to fail)", 1 - output.BlockChance / 100 },
-				total = s_format("= %d%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileAvoidChance),
+				total = s_format("= %f%% ^8(chance to be hit by a projectile attack)", 100 - output.ProjectileAvoidChance),
 			})
 			breakdown.SpellAvoidChance = { }
 			breakdown.multiChain(breakdown.SpellAvoidChance, {

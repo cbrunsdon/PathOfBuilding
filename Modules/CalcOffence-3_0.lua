@@ -976,7 +976,7 @@ function calcs.offence(env, actor)
 						end
 					end
 					if pass == 2 and breakdown then
-						t_insert(breakdown[damageType], s_format("= %d to %d", min, max))
+						t_insert(breakdown[damageType], s_format("= %f to %f", min, max))
 					end
 					if skillFlags.mine or skillFlags.trap or skillFlags.totem then
 						if not noLifeLeech then
@@ -1062,7 +1062,7 @@ function calcs.offence(env, actor)
 			-- For each damage type, calculate percentage of total damage
 			for _, damageType in ipairs(dmgTypeList) do
 				if output[damageType.."HitAverage"] > 0 then
-					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", output[damageType.."HitAverage"] / (totalHitMin + totalHitMax) * 200))
+					t_insert(breakdown[damageType], s_format("Portion of total damage: %f%%", output[damageType.."HitAverage"] / (totalHitMin + totalHitMax) * 200))
 				end
 			end
 		end
@@ -1885,7 +1885,7 @@ function calcs.offence(env, actor)
 				skillFlags.freeze = true
 				output.FreezeDurationMod = 1 + modDB:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %f life.", baseVal * 20 * output.FreezeDurationMod))
 				end
 			end
 		end

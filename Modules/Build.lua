@@ -1021,7 +1021,7 @@ end
 function buildMode:FormatStat(statData, statVal)
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
-	local valStr = s_format("%"..statData.fmt, val)
+	local valStr = s_format("%f", val)
 	if main.showThousandsSidebar then
 		valStr = color .. formatNumSep(valStr)
 	else
