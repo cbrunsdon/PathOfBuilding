@@ -31,6 +31,16 @@ function bit.bnot(a)
 	return ~a
 end
 
+function bit:rshift(value, amount)
+  if value == nil then
+    return 0
+  end
+  if amount == nil then
+    return 0
+  end
+  return value >> amount
+end
+
 local launch = { }
 SetMainObject(launch)
 
