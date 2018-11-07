@@ -8,6 +8,13 @@ JSON = require 'JSON'
 CharacterWindow = common.NewClass("CharacterWindow", function(self)
 end)
 
+CharacterImport = common.NewClass("CharacterImport", function(self)
+  self.name = nil
+  self.accountName = nil
+  self.itemJson = nil
+  self.skillJson = nil
+end)
+
 function PoeCurl(url, callback, cookies)
 	ConPrintf("Downloading page at: %s", url)
 	local curl = require("lcurl.safe")
@@ -48,9 +55,29 @@ function CharacterWindow:getCharacterList(account_name)
 	page, errMsg = PoeCurl("https://www.pathofexile.com/character-window/get-characters?accountName=" .. account_name)
 	if errMsg then
 		print(errMsg)
-		exit()
+		os.exit()
 	end
 	return JSON:decode(page)
 end
 
+function CharacterWindow:getAccountCharacter(account_name, character_name)
+	skillJson, errMsg = PoeCurl("https://www.pathofexile.com/character-window/get-passive-skills?accountName=" .. account_name ..'&character=' .. character_name)
+	if errMsg then
+		print(errMsg)
+		os.exit()
+	end
 
+	itemJson, errMsg = PoeCurl("https://www.pathofexile.com/character-window/get-items?accountName=" .. account_name ..'&character=' .. character_name)
+	if errMsg then
+		print(errMsg)
+		os.exit()
+	end
+
+  character = common.New('CharacterImport')
+  character.name = character_name
+  character.accountName = account_name
+  character.itemJson = itemJson
+  character.skillJson = skillJson
+
+  return character
+end
